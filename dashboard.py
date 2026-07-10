@@ -220,9 +220,9 @@ with tab1:
                 if len(st.session_state.trade_logs) > 5:
                     st.session_state.trade_logs.pop()
                     
-            with log_placeholder.container():
-                for log in st.session_state.trade_logs:
-                    st.markdown(log, unsafe_allow_html=True)
+            # Safer rendering instead of nested containers
+            all_logs = "\n".join(st.session_state.trade_logs)
+            log_placeholder.markdown(all_logs, unsafe_allow_html=True)
                     
             time.sleep(sim_speed / 1000.0) # Speed controlled by user
             
