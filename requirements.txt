@@ -1,0 +1,13 @@
+torch
+yfinance
+pandas
+numpy
+matplotlib
+scikit-learn
+gymnasium
+stable-baselines3
+fastapi
+uvicorn
+streamlit
+shap
+scipy

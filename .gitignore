@@ -1,0 +1,22 @@
+# Environments
+venv/
+env/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyTorch & RL Models
+*.pth
+*.zip
+
+# Data & Plots
+*.png
+*.jpg
+*.csv
+
+# OS generated files
+.DS_Store
+Thumbs.db
