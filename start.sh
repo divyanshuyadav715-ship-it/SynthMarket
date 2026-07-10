@@ -8,5 +8,5 @@ uvicorn api:app --host 0.0.0.0 --port 8000 &
 sleep 3
 
 # 3. Start the Streamlit frontend dashboard in the foreground
-# Hugging Face Spaces requires the main app to run on port 7860
-streamlit run dashboard.py --server.port 7860 --server.address 0.0.0.0
+# Uses the Render PORT environment variable if available, otherwise defaults to 7860 (Hugging Face standard)
+streamlit run dashboard.py --server.port "${PORT:-7860}" --server.address 0.0.0.0
