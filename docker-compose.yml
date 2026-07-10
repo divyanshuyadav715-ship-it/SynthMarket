@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: synthmarket_api
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.dashboard
+    container_name: synthmarket_dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://api:8000/predict
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - api

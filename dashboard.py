@@ -79,7 +79,9 @@ if st.session_state.is_running:
         try:
             # Mocking the features list
             features = list(np.random.randn(20)) + [st.session_state.net_worths[-1], 0]
-            resp = requests.post("http://localhost:8000/predict", json={"features": features})
+            import os
+            api_url = os.getenv("API_URL", "http://localhost:8000/predict")
+            resp = requests.post(api_url, json={"features": features})
             if resp.status_code == 200:
                 agent_action = resp.json()
             else:
