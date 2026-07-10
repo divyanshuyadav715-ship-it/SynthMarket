@@ -43,8 +43,13 @@ with col2:
     log_placeholder = st.empty()
 
 # --- Controls ---
-if st.button("Start / Stop Live Simulation"):
+st.markdown("### System Controls")
+button_label = "🛑 Stop Simulation" if st.session_state.is_running else "▶️ Start Live Simulation"
+button_type = "secondary" if st.session_state.is_running else "primary"
+
+if st.button(button_label, type=button_type, use_container_width=True):
     st.session_state.is_running = not st.session_state.is_running
+    st.rerun()
 
 # --- Live Simulation Loop ---
 if st.session_state.is_running:
