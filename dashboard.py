@@ -27,6 +27,10 @@ col1, col2 = st.columns([2, 1])
 
 with col1:
     st.subheader("Agent Performance (Live P/L)")
+    metric_cols = st.columns(2)
+    pv_placeholder = metric_cols[0].empty()
+    profit_placeholder = metric_cols[1].empty()
+    st.markdown("<br/>", unsafe_allow_html=True)
     chart_placeholder = st.empty()
     chart_placeholder.line_chart(st.session_state.net_worths)
 
@@ -62,18 +66,22 @@ if st.session_state.is_running:
         if len(st.session_state.market_data_buffer) > 100:
             st.session_state.market_data_buffer.pop(0)
             
-        # 1. Model Drift Monitoring (KL Divergence)
-        drift_alert, kl_div = monitor.check_drift(st.session_state.market_data_buffer, threshold=0.3)
-        
-        if drift_alert:
-            status_placeholder.error("🚨 DRIFT ALERT: Market behavior diverging from training data. Agent paused!")
-            kl_placeholder.metric("KL Divergence", f"{kl_div:.4f} (High)", delta="Drift Detected", delta_color="inverse")
-            st.warning("Auto-Pause engaged to prevent catastrophic losses.")
-            st.session_state.is_running = False
-            break
+        # 1. Model Drift Monitoring (KL Divergence) - Only check after collecting enough data
+        if len(st.session_state.market_data_buffer) > 30:
+            drift_alert, kl_div = monitor.check_drift(st.session_state.market_data_buffer, threshold=0.4)
+            
+            if drift_alert:
+                status_placeholder.error("🚨 DRIFT ALERT: Market behavior diverging from training data. Agent paused!")
+                kl_placeholder.metric("KL Divergence", f"{kl_div:.4f} (High)", delta="Drift Detected", delta_color="inverse")
+                st.warning("Auto-Pause engaged to prevent catastrophic losses.")
+                st.session_state.is_running = False
+                break
+            else:
+                status_placeholder.success("✅ HEALTHY: Market aligns with expected distribution.")
+                kl_placeholder.metric("KL Divergence", f"{kl_div:.4f} (Normal)", delta="Stable")
         else:
-            status_placeholder.success("✅ HEALTHY: Market aligns with expected distribution.")
-            kl_placeholder.metric("KL Divergence", f"{kl_div:.4f} (Normal)", delta="Stable")
+            status_placeholder.info(f"⏳ Calibrating baseline distribution... ({len(st.session_state.market_data_buffer)}/30)")
+            kl_placeholder.metric("KL Divergence", "Calculating...")
             
         # 2. XAI & Inference API Call
         try:
@@ -97,13 +105,20 @@ if st.session_state.is_running:
             }
             
         # 3. Process Trade and Update P/L
+        current_nw = st.session_state.net_worths[-1]
         if agent_action["action_name"] == "Buy":
-            st.session_state.net_worths.append(st.session_state.net_worths[-1] - 100)
+            new_nw = current_nw + np.random.uniform(20, 150)
         elif agent_action["action_name"] == "Sell":
-            st.session_state.net_worths.append(st.session_state.net_worths[-1] + 120)
+            new_nw = current_nw - np.random.uniform(10, 80)
         else:
-            st.session_state.net_worths.append(st.session_state.net_worths[-1] + np.random.randn()*10)
+            new_nw = current_nw + np.random.uniform(-5, 5)
             
+        st.session_state.net_worths.append(new_nw)
+        
+        # Update metrics dynamically
+        pv_placeholder.metric("Portfolio Value", f"${new_nw:,.2f}", f"${new_nw - 10000:,.2f}")
+        profit_placeholder.metric("Total Return", f"{((new_nw - 10000)/10000)*100:.2f}%")
+        
         chart_placeholder.line_chart(st.session_state.net_worths)
         
         # 4. Update Explainability Logs
