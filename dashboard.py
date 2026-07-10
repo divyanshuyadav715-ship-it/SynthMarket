@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 from monitor import ModelDriftMonitor
 
 # --- Page Config ---
-st.set_page_config(page_title="SynthMarket MLOps", layout="wide", page_icon="📈")
+st.set_page_config(page_title="Modi Ka Chella MLOps", layout="wide", page_icon="📈")
 
 # --- Custom CSS for Industry-Level Refinement ---
 st.markdown("""
@@ -37,7 +37,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.title("SynthMarket Live Ops & Drift Monitor")
+st.title("Modi Ka Chella Live Ops & Drift Monitor")
 st.markdown("Real-time Reinforcement Learning Trading Agent Monitoring Dashboard")
 
 # --- Sidebar Controls ---

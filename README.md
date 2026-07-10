@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>📈 SynthMarket Pro</h1>
+  <h1>📈 Modi Ka Chella</h1>
   <p><strong>Autonomous Quantitative Trading & Drift Observability Ecosystem</strong></p>
   
   [![Live Demo](https://img.shields.io/badge/Live_Demo-Play_Now-10b981?style=for-the-badge&logo=streamlit)](https://locustfilepy-6trvjqjzvgxc7caucx6xbe.streamlit.app/#agent-performance-live-p-l)
@@ -12,9 +12,9 @@
 
 ## 🚀 Overview
 
-**SynthMarket Pro** is an end-to-end Machine Learning Operations (MLOps) trading platform. It demonstrates how to train a Reinforcement Learning (RL) agent on synthetically generated financial data and securely monitor its performance in production using Drift Detection and Explainable AI (XAI).
+**Modi Ka Chella** is an end-to-end Machine Learning Operations (MLOps) trading platform. It demonstrates how to train a Reinforcement Learning (RL) agent on synthetically generated financial data and securely monitor its performance in production using Drift Detection and Explainable AI (XAI).
 
-By combining **Time-Series Generative Adversarial Networks (GANs)** for data augmentation and **Proximal Policy Optimization (PPO)** for algorithmic trading, SynthMarket provides a highly robust, risk-aware autonomous trading engine.
+By combining **Time-Series Generative Adversarial Networks (GANs)** for data augmentation and **Proximal Policy Optimization (PPO)** for algorithmic trading, Modi Ka Chella provides a highly robust, risk-aware autonomous trading engine.
 
 ### 🔥 Try the Live Dashboard
 👉 **[Launch Interactive Dashboard](https://locustfilepy-6trvjqjzvgxc7caucx6xbe.streamlit.app/#agent-performance-live-p-l)**

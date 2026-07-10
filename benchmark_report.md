@@ -2,7 +2,7 @@
 ## 📊 Quantitative Strategy Tearsheet & MLOps Health Report
 
 ### 1. Executive Summary
-This report details the exhaustive validation of the **SynthMarket Pro** algorithmic trading engine. The engine was evaluated across 5 simulated market episodes (1,200 trading days each), synthesized by our custom Time-Series GAN to mimic severe volatility and black swan crash scenarios.
+This report details the exhaustive validation of the **Modi Ka Chella** algorithmic trading engine. The engine was evaluated across 5 simulated market episodes (1,200 trading days each), synthesized by our custom Time-Series GAN to mimic severe volatility and black swan crash scenarios.
 
 ### 2. Risk vs Reward Analysis (Alpha Profile)
 The Proximal Policy Optimization (PPO) agent's core trading metrics demonstrate its ability to navigate volatile regimes while protecting capital.
