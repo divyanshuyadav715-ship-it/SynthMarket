@@ -177,7 +177,8 @@ with tab1:
             try:
                 features = list(np.random.randn(20)) + [st.session_state.net_worths[-1], 0]
                 import os
-                api_url = os.getenv("API_URL", "http://localhost:8000/predict")
+                # Point directly to the live Render backend by default if API_URL env is not set
+                api_url = os.getenv("API_URL", "https://synthmarket.onrender.com/predict")
                 resp = requests.post(api_url, json={"features": features})
                 if resp.status_code == 200:
                     agent_action = resp.json()
