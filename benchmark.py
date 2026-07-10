@@ -163,8 +163,8 @@ Based on the quantitative validation and risk thresholds, the automated investme
 ---
 *Disclaimer: These benchmarks are generated automatically by evaluating the trained models on isolated validation environments. This does not constitute financial advice.*
 """
-        with open("benchmark_report.md", "w", encoding="utf-8") as f:
-            f.write(report)
+    with open("benchmark_report.md", "w", encoding="utf-8") as f:
+        f.write(report)
     print("Benchmark report saved to benchmark_report.md")
 
 if __name__ == "__main__":
