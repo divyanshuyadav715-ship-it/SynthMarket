@@ -124,13 +124,13 @@ def run_benchmarks():
         print(f"Error in Latency benchmark: {e}")
         results['Inference_Latency_ms'] = -1.0
         
-        # Determine the investment decision based on Sharpe Ratio
-        if sharpe_ratio > 1.5:
-            decision = "🟢 **STRONG BUY / DEPLOY CAPITAL**: The strategy exhibits exceptional risk-adjusted returns (Sharpe > 1.5). Immediate staging rollout recommended."
-        elif sharpe_ratio > 1.0:
-            decision = "🟡 **HOLD / PAPER TRADE**: Strategy is profitable but carries moderate risk (Sharpe 1.0 - 1.5). Continue paper trading for 30 days before live capital deployment."
-        else:
-            decision = "🔴 **REJECT / RETRAIN**: Strategy fails to beat risk-free alternatives (Sharpe < 1.0). Retraining required with adjusted hyper-parameters."
+    final_sharpe = results.get('RL_Sharpe_Ratio', 0)
+    if final_sharpe > 1.5:
+        decision = "🟢 **STRONG BUY / DEPLOY CAPITAL**: The strategy exhibits exceptional risk-adjusted returns (Sharpe > 1.5). Immediate staging rollout recommended."
+    elif final_sharpe > 1.0:
+        decision = "🟡 **HOLD / PAPER TRADE**: Strategy is profitable but carries moderate risk (Sharpe 1.0 - 1.5). Continue paper trading for 30 days before live capital deployment."
+    else:
+        decision = "🔴 **REJECT / RETRAIN**: Strategy fails to beat risk-free alternatives (Sharpe < 1.0). Retraining required with adjusted hyper-parameters."
 
     report = f"""
 ## 📊 Quantitative Strategy Tearsheet & MLOps Health Report
