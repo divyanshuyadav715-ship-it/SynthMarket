@@ -9,8 +9,7 @@ __pycache__/
 *$py.class
 
 # PyTorch & RL Models
-*.pth
-*.zip
+# (Removed restrictions to allow models to be uploaded for Render Deployment)
 
 # Data & Plots
 *.png
