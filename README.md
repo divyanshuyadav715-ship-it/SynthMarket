@@ -72,7 +72,7 @@ pip install -r requirements.txt
 ### 2. Run the Full Pipeline Locally
 ```bash
 # Start the FastAPI Backend
-uvicorn main:app --reload --port 8000
+uvicorn api:app --reload --port 8000
 
 # In a new terminal, start the Streamlit Dashboard
 streamlit run dashboard.py
