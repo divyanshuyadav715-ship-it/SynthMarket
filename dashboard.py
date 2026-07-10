@@ -7,6 +7,36 @@ from monitor import ModelDriftMonitor
 
 # --- Page Config ---
 st.set_page_config(page_title="SynthMarket MLOps", layout="wide", page_icon="📈")
+
+# --- Custom CSS for Industry-Level Refinement ---
+st.markdown("""
+<style>
+    /* Hide Streamlit default headers and footer */
+    #MainMenu {visibility: hidden;}
+    header {visibility: hidden;}
+    footer {visibility: hidden;}
+    
+    /* Premium Metric Cards */
+    div[data-testid="metric-container"] {
+        background-color: #1E1E1E;
+        border: 1px solid #333;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Smooth Transitions */
+    .stButton>button {
+        transition: all 0.3s ease;
+        border-radius: 5px;
+    }
+    .stButton>button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+    }
+</style>
+""", unsafe_allow_html=True)
+
 st.title("SynthMarket Live Ops & Drift Monitor")
 st.markdown("Real-time Reinforcement Learning Trading Agent Monitoring Dashboard")
 
@@ -88,10 +118,11 @@ with tab1:
         fig.add_trace(go.Scatter(
             x=x_data, y=y_data,
             mode='lines',
-            line=dict(color=line_color, width=3),
+            line=dict(color=line_color, width=3, shape='spline'), # Spline for ultra-smooth curves
             fill='tozeroy',
             fillcolor=fill_color,
-            name='Portfolio Value'
+            name='Portfolio Value',
+            hovertemplate='<b>Tick:</b> %{x}<br><b>Value:</b> $%{y:,.2f}<extra></extra>'
         ))
         
         # Add a marker if drift triggered
@@ -104,6 +135,7 @@ with tab1:
             ))
             
         fig.update_layout(
+            template='plotly_dark',
             margin=dict(l=0, r=0, t=0, b=0),
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
@@ -197,8 +229,10 @@ with tab1:
             current_nw = st.session_state.net_worths[-1]
             if agent_action["action_name"] == "Buy":
                 new_nw = current_nw * (1.0 + current_return) + np.random.uniform(5, 20)
+                st.toast(f"Trade Executed: BUY", icon="🟢")
             elif agent_action["action_name"] == "Sell":
                 new_nw = current_nw * (1.0 + current_return) - np.random.uniform(2, 10)
+                st.toast(f"Trade Executed: SELL", icon="🔴")
             else:
                 new_nw = current_nw * (1.0 + current_return)
                 
