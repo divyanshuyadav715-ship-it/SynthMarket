@@ -60,6 +60,7 @@ class SynthMarketEnv(gym.Env):
         self.current_step = self.window_size
         self.balance = self.initial_balance
         self.holdings = 0.0
+        self.net_worth = self.initial_balance
         
         return self._next_observation(), {}
 
@@ -96,9 +97,10 @@ class SynthMarketEnv(gym.Env):
         # Calculate new net worth based on next step's market price
         new_price = self.prices[self.current_step] if self.current_step < len(self.prices) else current_price
         current_net_worth = self.balance + (self.holdings * new_price)
+        self.net_worth = current_net_worth
         
         # Reward is the change in portfolio value (realized + unrealized PnL)
-        reward = current_net_worth - prev_net_worth
+        reward = float(current_net_worth - prev_net_worth)
         
         # Stop episode if we run out of generated market data
         done = self.current_step >= len(self.prices) - 1

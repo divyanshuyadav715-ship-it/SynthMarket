@@ -11,3 +11,5 @@ uvicorn
 streamlit
 shap
 scipy
+
+plotly
