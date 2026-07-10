@@ -366,7 +366,9 @@ if st.session_state.is_running and not st.session_state.drift_triggered:
         # XAI & Inference API Call
         try:
             features = list(np.random.randn(20)) + [st.session_state.net_worths[-1], 0]
-            api_url = os.getenv("API_URL", "http://localhost:8000/predict")
+            import os
+            # Point directly to the live Render backend by default if API_URL env is not set
+            api_url = os.getenv("API_URL", "https://synthmarket.onrender.com/predict")
             resp = requests.post(api_url, json={"features": features}, timeout=2)
             if resp.status_code == 200:
                 agent_action = resp.json()
