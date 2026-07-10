@@ -5,7 +5,7 @@ import numpy as np
 from stable_baselines3 import PPO
 from market_env import SynthMarketEnv
 
-app = FastAPI(title="Modi Ka Chella Live Ops API", description="XAI and Inference API for RL Agent")
+app = FastAPI(title="Adaptive Trading Protocol (ATP) API", description="XAI and Inference API for RL Agent")
 
 # Initialize models globally
 try:
