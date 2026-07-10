@@ -206,9 +206,7 @@ col1, col2 = st.columns([7, 3], gap="large")
 
 with col1:
     metrics_placeholder = st.empty()
-    st.markdown("<div class='tw-card'>", unsafe_allow_html=True)
     chart_placeholder = st.empty()
-    st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
     status_placeholder = st.empty()
